@@ -27,6 +27,14 @@ function App() {
         setLastEqual(false);
     }
     function handleOperatorClick(operator) {
+        let result;
+        if(theOperator !== "") {
+            result = completeOperation();
+            setFirstNumber(result);
+            setInputValue(0);
+            setTheOperator(operator);
+            setLastEqual(true);
+        }
         if(firstNumber === 0) {
             setFirstNumber(Number(inputValue));
             setTheOperator(operator);
@@ -35,26 +43,32 @@ function App() {
         setLastEqual(false);
     }
     function handleEqual() {
+        completeOperation();
+        setFirstNumber(0);
+        setTheOperator("");
+        setLastEqual(true);
+    }
+    function completeOperation() {
+        let result;
         switch(theOperator) {
             case "+":
-                setInputValue(firstNumber + inputValue);
+                result = firstNumber + inputValue;
                 break;
             case "-":
-                setInputValue(firstNumber - inputValue);
+                result = firstNumber - inputValue;
                 break;
             case "*":
-                setInputValue(firstNumber * inputValue);
+                result = firstNumber * inputValue;
                 break;
             case "/":
                 // TODO : Protect from division by 0
-                setInputValue(firstNumber / inputValue);
+                result = firstNumber / inputValue;
                 break;
             default:
                 break;
         }
-        setFirstNumber(0);
-        setTheOperator("");
-        setLastEqual(true);
+        setInputValue(result);
+        return result;
     }
 
     function handleClear() {
