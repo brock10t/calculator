@@ -43,7 +43,9 @@ function App() {
         setLastEqual(false);
     }
     function handleEqual() {
-        completeOperation();
+        if(theOperator !== "") {
+            completeOperation();
+        }
         setFirstNumber(0);
         setTheOperator("");
         setLastEqual(true);
@@ -61,7 +63,11 @@ function App() {
                 result = firstNumber * inputValue;
                 break;
             case "/":
-                // TODO : Protect from division by 0
+                // TODO : Create an error state for division by zero
+                if(inputValue === 0) {
+                    alert("You can't divide by 0.");
+                    return;
+                }
                 result = firstNumber / inputValue;
                 break;
             default:
